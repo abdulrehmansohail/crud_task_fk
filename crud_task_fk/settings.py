@@ -25,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = env.str('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env.bool('DEBUG', default=False)
 ALLOWED_HOSTS = ['.herokuapp.com', '127.0.0.1']
 
 
@@ -54,7 +54,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'crud_task_fk.urls'
-CSRF_TRUSTED_ORIGINS = ['crud-task-fk.herokuapp.com', '127.0.0.1']
+CSRF_TRUSTED_ORIGINS = ['https://crud-task-fk.herokuapp.com']
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -85,7 +85,7 @@ if DEBUG:
         }
     }
 
-if env.str("DATABASE_URL", default=None):
+else:
     DATABASES = {
         'default': env.db()
     }
